@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use itertools::Itertools;
 
-use crate::{ColName, CsvAny, sanitizer::sanitize_identifier};
+use crate::{ColName, CsvAny, ValueNamesView, sanitizer::sanitize_identifier};
 
 #[derive(Debug, Clone)]
 pub struct ColumnInfo {
@@ -23,8 +23,9 @@ pub struct Variant {
 }
 
 impl ColumnInfo {
-    pub fn new(column_names: &[ColName], values: &[Vec<CsvAny>], column_name: &str) -> Self {
-        let (column_index, column_name) = column_names
+    pub fn new(names_and_values_view: ValueNamesView, column_name: &str) -> Self {
+        let ValueNamesView { values, names } = names_and_values_view;
+        let (column_index, column_name) = names
             .iter()
             .enumerate()
             .find(|(_, x)| column_name.contains(x.raw.as_str()))

@@ -73,10 +73,11 @@ pub fn generate_enums_from(dataset: &mut CsvDataset) -> String{
     // I cloned because I need CsvDataset as mutable
     // to populate the field `info:Vec<ColumnInfo>`
     // but I also need a reference to `names` (another field of itself)
-    let col_name = &dataset.names;
-    
+    let (value_names_view, info) = dataset.split_view_and_info();
+    let col_name = value_names_view.names;
     let enums = col_name.iter().map(|col_name| {
-        let mut col_info = ColumnInfo::new(&dataset.names, &dataset.values, &col_name.raw);
+
+        let mut col_info = ColumnInfo::new(value_names_view, &col_name.raw);
 
 
         if !col_info.unique_values.iter().any(|x| x.csvany == CsvAny::Null){
@@ -84,7 +85,7 @@ pub fn generate_enums_from(dataset: &mut CsvDataset) -> String{
             col_info.unique_values.push(Variant{ raw: str.clone(), sanitized: str, csvany: CsvAny::Null});
         }
 
-        dataset.info.push(col_info.clone());
+        info.push(col_info.clone());
         
         let unique_val_iter = col_info.unique_values.iter();
 

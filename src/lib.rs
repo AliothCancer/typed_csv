@@ -68,8 +68,17 @@ impl CsvDataset {
             info: Vec::new(),
         }
     }
-    fn view_names_and_values(&self) -> ValueNamesView<'_>{
+    pub fn view_names_and_values(&self) -> ValueNamesView<'_>{
         ValueNamesView { values: &self.values, names: &self.names }
+    }
+    pub fn split_view_and_info(&mut self) -> (ValueNamesView<'_>, &mut Vec<ColumnInfo>) {
+        (
+            ValueNamesView { 
+                values: &self.values, 
+                names: &self.names 
+            },
+            &mut self.info
+        )
     }
 }
 
