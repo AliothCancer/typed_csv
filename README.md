@@ -6,7 +6,7 @@ To use this library for generating and utilizing a typed Rust interface for your
 First, load your CSV file using a `csv::Reader`. You then create a `CsvDataset` by providing the reader and specifying which strings should be treated as null values.
 
 ```rust
-let file = File::open("train.csv")?;
+let file = File::open("iris.csv")?;
 let rdr = csv::ReaderBuilder::new()
     .has_headers(true)
     .from_reader(file);
@@ -21,8 +21,8 @@ Use the csv_deserializing cli to generate the rust code for a specific csv file.
 Once the code is saved into a file (e.g., `iris.rs`), you can import it into your project. To work with the typed data, initialize a `CsvDataFrame` type by passing the `CsvDataset` you created earlier.
 
 ```rust
-mod csv_types;
-use csv_types::*;
+mod iris;
+use iris::*;
 
 let df = CsvDataFrame::new(dataset);
 ```
