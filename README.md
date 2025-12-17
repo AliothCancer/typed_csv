@@ -15,15 +15,10 @@ let mut dataset = CsvDataset::new(rdr, NullValues(&["NA"]));
 ```
 
 ## 2. Generating Rust Code
-Call the `print_csv_rust_code` function. This function accepts a `&mut CsvDataset`, generates the necessary Enums and Structs, and prints the resulting Rust code to `stdout`. You can redirect this output to a file from your command line to save the generated types.
-
-```rust
-// This will print the generated code to the console
-print_csv_rust_code(&mut dataset);
-```
+Use the csv_deserializing cli to generate the rust code for a specific csv file. The binary will print all the rust code so you can redirect this output to a file from your command line to save it.
 
 ## 3. Using the Generated Code
-Once the code is saved into a file (e.g., `csv_types.rs`), you can import it into your project. To work with the typed data, initialize a `CsvDataFrame` type by passing the `CsvDataset` you created earlier.
+Once the code is saved into a file (e.g., `iris.rs`), you can import it into your project. To work with the typed data, initialize a `CsvDataFrame` type by passing the `CsvDataset` you created earlier.
 
 ```rust
 mod csv_types;
@@ -83,6 +78,23 @@ let df = CsvDataFrame::new(dataset);
 
 ## 5. Type Recognition: Categorical vs Numerical
 The library identifies types by attempting to parse each raw CSV value.
-* **Numerical**: If a value parses as an `i64`, it is treated as an `Int`; if it parses as an `f64`, it is treated as a `Float`.
+* **Numerical**: If a value parses as an `i64`, it is treated as an `Int`; if it parses as an `f64`, it is treated as a `Float`. For example taking a look at `sepal length (cm)` in the iris dataset, the resulting type is:
+```rust
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum sepal_length_cm {
+    Float(f64),
+    Null,
+}
+// Also implement from string
+impl std::str::FromStr for sepal_length_cm {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let f = s.parse::<f64>().unwrap();
+        Ok(sepal_length_cm::Float(f))
+    }
+}
+```
+
 * **Categorical**: Values that cannot be parsed as numbers are treated as `Str`.
 * **Metadata**: `ColumnInfo` tracks the count of these types and stores unique variants to facilitate categorical Enum generation.

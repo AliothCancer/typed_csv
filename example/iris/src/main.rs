@@ -39,15 +39,29 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     // Can use a list of all columns
-    // make sure to use completion
+    // make sure to use auto-completion
     // for match arms
     for col in df.get_columns() {
         match col {
-            CsvColumn::sepal_length_cm(sepal_length_cms) => todo!(),
+            CsvColumn::sepal_length_cm(sepal_length_cms) => {
+                sepal_length_cms.iter().for_each(|x|{
+                    match x {
+                        sepal_length_cm::Float(f) => todo!(),
+                        sepal_length_cm::Null => todo!(),
+                    }
+                })
+            },
             CsvColumn::sepal_width_cm(sepal_width_cms) => todo!(),
             CsvColumn::petal_length_cm(petal_length_cms) => todo!(),
             CsvColumn::petal_width_cm(petal_width_cms) => todo!(),
-            CsvColumn::target(targets) => todo!(),
+            CsvColumn::target(targets) => {
+                targets.iter().for_each(|x|match x{
+                    target::Iris_setosa => todo!(),
+                    target::Iris_versicolor => todo!(),
+                    target::Iris_virginica => todo!(),
+                    target::Null => todo!(),
+                })
+            },
         }
     }
 
