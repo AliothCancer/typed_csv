@@ -75,8 +75,8 @@ let df = CsvDataFrame::new(dataset);
     }
 
 ```
-
-## 5. Name sanitization and Type Recognition: Categorical vs Numerical
+# More info
+## Name sanitization and Type Recognition: Categorical vs Numerical
 Sanitization is achived converting any number or special char to Strings that will be used in the generated code. In particular the function which does it is contained in sanitizer.rs (`sanitize_identifier`).
 
 The library identifies types by attempting to parse each raw CSV value.
@@ -107,6 +107,28 @@ create_enum!(target;
 Null,
 );
 ```
-A macro is used to have a sintactic sugar way to associate raw strings to the the typed enum variant.
+The create_enum macro is used to have a sintactic sugar way to associate raw strings to the the typed enum variant.
 
 * **Metadata**: `ColumnInfo` tracks the count of these types and stores unique variants to facilitate categorical Enum generation.
+
+## Main structure of the generated code
+This is the example for the iris datase:
+```rust
+#[derive(Debug)]
+pub enum CsvColumn {
+    sepal_length_cm(Vec<sepal_length_cm>),
+    sepal_width_cm(Vec<sepal_width_cm>),
+    petal_length_cm(Vec<petal_length_cm>),
+    petal_width_cm(Vec<petal_width_cm>),
+    target(Vec<target>),
+}
+
+pub struct CsvDataFrame {
+    pub sepal_length_cm: CsvColumn,
+    pub sepal_width_cm: CsvColumn,
+    pub petal_length_cm: CsvColumn,
+    pub petal_width_cm: CsvColumn,
+    pub target: CsvColumn,
+}
+```
+Each enum used to represent the csv value have a Null variant.
