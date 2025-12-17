@@ -112,7 +112,15 @@ The create_enum macro is used to have a sintactic sugar way to associate raw str
 * **Metadata**: `ColumnInfo` tracks the count of these types and stores unique variants to facilitate categorical Enum generation.
 
 ## Main structure of the generated code
-This is the example for the iris datase:
+This is the example for the iris dataset:
+```
+sepal length (cm),sepal width (cm),petal length (cm),petal width (cm),target
+5.1,3.5,1.4,0.2,Iris-setosa
+4.9,3.0,1.4,0.2,Iris-setosa
+4.7,3.2,1.3,0.2,Iris-setosa
+4.6,3.1,1.5,0.2,Iris-setosa
+```
+Rust generated code:
 ```rust
 #[derive(Debug)]
 pub enum CsvColumn {
