@@ -15,6 +15,9 @@ Options:
   -V, --version                  Print version
 ```
 
+*Note on null values:*
+- `--null-values` is an optional comma separate list of string which will be converted to the Null variant which all generated enums have
+
 # Lib Usage Guide
 
 To use this library for generating and utilizing a typed Rust interface for your CSV files, follow these steps:
