@@ -10,21 +10,20 @@ pub fn sanitize_identifier(raw: &str) -> String {
         .chars()
         .map(|ch| match ch {
             // Common Punctuation
-            '.' => "Point".into(),
             ',' => "Comma".into(),
             ':' => "Colon".into(),
             ';' => "Semi".into(),
-            '_' => "_".into(),
+            '.' | '_' => "_".into(),
 
             // Math & Logic
-            '+' => "Plus".into(),
+            '+' => "PLUS".into(),
             '-' => "_".into(),
-            '*' => "Star".into(),
-            '/' => "Slash".into(),
-            '=' => "Equals".into(),
-            '%' => "Percent".into(),
-            '<' => "Lt".into(),
-            '>' => "Gt".into(),
+            '*' => "STAR".into(),
+            '/' => "SLASH".into(),
+            '=' => "EQUALS".into(),
+            '%' => "PERCENT".into(),
+            '<' => "LT".into(),
+            '>' => "GT".into(),
 
             // Wrappers
             '(' => "".into(),
