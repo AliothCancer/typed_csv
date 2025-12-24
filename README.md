@@ -8,14 +8,20 @@ This repo contains a rust binary (main.rs) which translate a csv table in rust t
 ```
 git clone https://github.com/AliothCancer/csv_deserializer.git
 ```
+A folder called `csv_deserializer` will be created
 
-2. Compile the project
+2. Move inside that folder
+```
+cd csv_deserializer
+```
+
+3. Compile the project
 
 ```
 cargo build --release
 ```
 
-3. Copy in local bin
+4. Copy in local bin
 - Assuming `~/.local/bin`:
     - is in $PATH (bash)
     - is in $env.PATH (nushell)
