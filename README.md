@@ -5,8 +5,8 @@ This repo contains a rust binary (main.rs) which translate a csv table in rust t
 
 # Bin usage
 ```bash
-> cargo run --release --quiet -- -h
-Usage: csv_deserializer --input-file <input_file> --null-values <a,b,..>
+❯ cargo run --release --quiet -- -h
+Usage: csv_deserializer [OPTIONS] --input-file <input_file>
 
 Options:
   -i, --input-file <input_file>

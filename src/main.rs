@@ -25,7 +25,7 @@ struct Cli {
     #[arg(short = 'i', long = "input-file", value_name = "input_file", value_parser=custom_csv_path_validator)]
     input_file: PathBuf,
     #[arg(short = 'n', long = "null-values", value_name = "a,b,..")]
-    null_values: String
+    null_values: Option<String>
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -34,7 +34,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     let rdr = csv::ReaderBuilder::new()
         .has_headers(true)
         .from_reader(file);
-    let possible_nulls = null_values.split(',').map(|x|x.trim()).collect::<Vec<&str>>();
+    let possible_nulls = match &null_values{
+        Some(s) => s.split(',').map(|x|x.trim()).collect::<Vec<&str>>(),
+        None => Vec::new(),
+    };
 
     let mut dataset = CsvDataset::new(rdr, NullValues(possible_nulls));
     print_csv_rust_code(&mut dataset);
