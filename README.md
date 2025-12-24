@@ -3,6 +3,26 @@ This repo contains a rust binary (main.rs) which translate a csv table in rust t
 
 - The binary will output all the rust code to stdout so it can be easily piped to write a file via terminal.
 
+# Bin installation
+1. Clone the repo
+```
+git clone https://github.com/AliothCancer/csv_deserializer.git
+```
+
+2. Compile the project
+
+```
+cargo build --release
+```
+
+3. Copy in local bin
+- Assuming `~/.local/bin`:
+    - is in $PATH (bash)
+    - is in $env.PATH (nushell)
+```
+cp target/release/csv_deserializer ~/.local/bin
+```
+
 # Bin usage
 ```bash
 ❯ cargo run --release --quiet -- -h
