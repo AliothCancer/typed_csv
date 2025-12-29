@@ -2,7 +2,7 @@
 use csv_deserializer::create_enum;
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 pub enum sepal_length_cm {
     Float(f64),
     Null,
@@ -17,7 +17,7 @@ impl std::str::FromStr for sepal_length_cm {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 pub enum sepal_width_cm {
     Float(f64),
     Null,
@@ -32,7 +32,7 @@ impl std::str::FromStr for sepal_width_cm {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 pub enum petal_length_cm {
     Float(f64),
     Null,
@@ -47,7 +47,7 @@ impl std::str::FromStr for petal_length_cm {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 pub enum petal_width_cm {
     Float(f64),
     Null,
@@ -97,8 +97,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::CsvAny::Float(f) => sepal_length_cm::Float(*f),
-                    csv_deserializer::CsvAny::Null => sepal_length_cm::Null,
+                    csv_deserializer::csv_type::CsvAny::Float(f) => sepal_length_cm::Float(*f),
+                    csv_deserializer::csv_type::CsvAny::Null => sepal_length_cm::Null,
 
                     _ => panic!(),
                 })
@@ -115,8 +115,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::CsvAny::Float(f) => sepal_width_cm::Float(*f),
-                    csv_deserializer::CsvAny::Null => sepal_width_cm::Null,
+                    csv_deserializer::csv_type::CsvAny::Float(f) => sepal_width_cm::Float(*f),
+                    csv_deserializer::csv_type::CsvAny::Null => sepal_width_cm::Null,
 
                     _ => panic!(),
                 })
@@ -133,8 +133,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::CsvAny::Float(f) => petal_length_cm::Float(*f),
-                    csv_deserializer::CsvAny::Null => petal_length_cm::Null,
+                    csv_deserializer::csv_type::CsvAny::Float(f) => petal_length_cm::Float(*f),
+                    csv_deserializer::csv_type::CsvAny::Null => petal_length_cm::Null,
 
                     _ => panic!(),
                 })
@@ -151,8 +151,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::CsvAny::Float(f) => petal_width_cm::Float(*f),
-                    csv_deserializer::CsvAny::Null => petal_width_cm::Null,
+                    csv_deserializer::csv_type::CsvAny::Float(f) => petal_width_cm::Float(*f),
+                    csv_deserializer::csv_type::CsvAny::Null => petal_width_cm::Null,
 
                     _ => panic!(),
                 })
@@ -169,8 +169,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::CsvAny::Str(s) => target::from_str(s).unwrap(),
-                    csv_deserializer::CsvAny::Null => target::Null,
+                    csv_deserializer::csv_type::CsvAny::Str(s) => target::from_str(s).unwrap(),
+                    csv_deserializer::csv_type::CsvAny::Null => target::Null,
 
                     _ => panic!(),
                 })

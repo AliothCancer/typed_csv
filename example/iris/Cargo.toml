@@ -4,11 +4,10 @@ version = "0.1.0"
 edition = "2024"
 #description = "example for iris"
 #readme = "README.md"
-#repository = "https://github.com/AliothCancer/csv_deserializer"
-#license = "MIT OR Apache-2.0"
-#license-file = "LICENSE"
+license = "MIT OR Apache-2.0"
+license-file = "LICENSE"
 #keywords = ["csv", "deserialization", "gen-code", "rs-code"]
 
 [dependencies]
-csv_deserializer.workspace = true
-csv.workspace = true
+csv = { workspace = true }
+csv_deserializer = { workspace = true }

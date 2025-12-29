@@ -1,8 +1,7 @@
 #![allow(clippy::uninlined_format_args)]
 
 use crate::{
-    COLUMN_TYPE_ENUM_NAME, ColName, CsvDataset, MAIN_STRUCT_NAME, SanitizedStr,
-    dataset_info::{ColumnInfo, Variant},
+    COLUMN_TYPE_ENUM_NAME, ColName, CsvDataset, MAIN_STRUCT_NAME, SanitizedStr, csv_type::CsvAny, dataset_info::{ColumnInfo, Variant}
 };
 
 /// It generates a struct named `CsvDataFrame` which
@@ -90,29 +89,29 @@ fn gen_vec_of_enums(col_name: &ColName, unique_values: &[Variant]) -> String {
     let match_arms = unique_values
         .iter()
         .filter_map(|v| match &v.csvany {
-            crate::CsvAny::Str(_) if !str_case_already_written => {
+            CsvAny::Str(_) if !str_case_already_written => {
                 str_case_already_written = true;
                 Some(format!(
-                    "csv_deserializer::CsvAny::Str(s) => {sanitized}::from_str(s).unwrap(),\n"
+                    "csv_deserializer::csv_type::CsvAny::Str(s) => {sanitized}::from_str(s).unwrap(),\n"
                 ))
             }
-            crate::CsvAny::Int(_) if !int_case_already_written => {
+            CsvAny::Int(_) if !int_case_already_written => {
                 int_case_already_written = true;
                 Some(format!(
-                    "csv_deserializer::CsvAny::Int(i) => {sanitized}::Int(*i),\n"
+                    "csv_deserializer::csv_type::CsvAny::Int(i) => {sanitized}::Int(*i),\n"
                 ))
             }
-            crate::CsvAny::Float(_) if !float_case_already_written => {
+            CsvAny::Float(_) if !float_case_already_written => {
                 float_case_already_written = true;
                 Some(format!(
-                    "csv_deserializer::CsvAny::Float(f) => {sanitized}::Float(*f),\n"
+                    "csv_deserializer::csv_type::CsvAny::Float(f) => {sanitized}::Float(*f),\n"
                 ))
             }
-            crate::CsvAny::Null => Some(format!(
-                "csv_deserializer::CsvAny::Null => {sanitized}::Null,\n"
+            CsvAny::Null => Some(format!(
+                "csv_deserializer::csv_type::CsvAny::Null => {sanitized}::Null,\n"
             )),
-            crate::CsvAny::Empty => Some(format!(
-                "csv_deserializer::CsvAny::Empty => {sanitized}::Null,\n"
+            CsvAny::Empty => Some(format!(
+                "csv_deserializer::csv_type::CsvAny::Empty => {sanitized}::Null,\n"
             )),
             _ => None,
         })
