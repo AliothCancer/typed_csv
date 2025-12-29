@@ -4,7 +4,7 @@
 /// # Examples
 /// Can use into to convert to the corresponding CsvAny variant
 /// ```
-/// use crate::CsvAny;
+/// use csv_deserializer::csv_type::CsvAny;
 ///
 /// let val: CsvAny = 42.into();
 /// 
