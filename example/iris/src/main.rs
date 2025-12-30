@@ -1,9 +1,12 @@
-mod iris;
+#![allow(unused_variables)]
+
+mod iris_latest_for_diff;
 use std::{error::Error, fs::File};
 
-use csv_deserializer::{CsvDataset, NullValues};
+use csv_deserializer::{csv_dataset::CsvDataset, NullValues};
 
-use crate::iris::*;
+//use crate::iris::*;
+use crate::iris_latest_for_diff::*;
 
 fn main() -> Result<(), Box<dyn Error>> {
     // Build a reader for the csv file

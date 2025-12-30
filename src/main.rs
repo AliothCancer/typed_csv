@@ -7,15 +7,21 @@ use clap::Parser;
 use std::{error::Error, fmt, fs::File, path::PathBuf};
 
 use csv_deserializer::{
-    CsvDataset, NullValues, enum_gen::generate_enums_from, struct_gen::gen_struct,
+    csv_dataset::CsvDataset, NullValues, enum_gen::generate_enums_from, struct_gen::gen_struct,
 };
 
 /// Print to stdout the code generation for the provided `CsvDataset`
 fn print_csv_rust_code(dataset: &mut CsvDataset) {
     let enums = generate_enums_from(dataset);
     let struc = gen_struct(dataset);
-    println!("#![allow(unused,non_snake_case,non_camel_case_types)]\nuse csv_deserializer::create_enum;\nuse std::str::FromStr;
-    \n{enums}\n{struc}");
+    let import = gen_imports();
+    println!("#![allow(unused,non_snake_case,non_camel_case_types)]{import}\n{enums}\n{struc}");
+}
+fn gen_imports()-> String{
+    String::from("\
+use csv_deserializer::{create_enum, csv_dataset::CsvDataset, csv_types::CsvAny};
+use std::str::FromStr;
+\n")
 }
 
 #[derive(Parser)]

@@ -1,6 +1,6 @@
 #![allow(clippy::uninlined_format_args)]
 
-use crate::{COLUMN_TYPE_ENUM_NAME,ColName, CsvAny, CsvDataset, dataset_info::{ColumnInfo, Variant}, sanitizer::sanitize_identifier};
+use crate::{COLUMN_TYPE_ENUM_NAME,ColName, CsvAny, csv_dataset::CsvDataset, dataset_info::{ColumnInfo, Variant}, sanitizer::sanitize_identifier};
 
 
 #[macro_export]

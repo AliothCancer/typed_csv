@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2024"
 #description = "example for iris"
 #readme = "README.md"
-license = "MIT OR Apache-2.0"
-license-file = "LICENSE"
+#license = "MIT OR Apache-2.0"
+#license-file = "LICENSE"
 #keywords = ["csv", "deserialization", "gen-code", "rs-code"]
 
 [dependencies]

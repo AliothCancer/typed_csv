@@ -1,5 +1,5 @@
 #![allow(unused, non_snake_case, non_camel_case_types)]
-use csv_deserializer::{create_enum, csv_dataset::CsvDataset};
+use csv_deserializer::{create_enum, csv_dataset::CsvDataset, csv_types::CsvAny};
 use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
@@ -97,8 +97,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::csv_types::CsvAny::Float(f) => sepal_length_cm::Float(*f),
-                    csv_deserializer::csv_types::CsvAny::Null => sepal_length_cm::Null,
+                    CsvAny::Float(f) => sepal_length_cm::Float(*f),
+                    CsvAny::Null => sepal_length_cm::Null,
 
                     _ => panic!(),
                 })
@@ -115,8 +115,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::csv_types::CsvAny::Float(f) => sepal_width_cm::Float(*f),
-                    csv_deserializer::csv_types::CsvAny::Null => sepal_width_cm::Null,
+                    CsvAny::Float(f) => sepal_width_cm::Float(*f),
+                    CsvAny::Null => sepal_width_cm::Null,
 
                     _ => panic!(),
                 })
@@ -133,8 +133,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::csv_types::CsvAny::Float(f) => petal_length_cm::Float(*f),
-                    csv_deserializer::csv_types::CsvAny::Null => petal_length_cm::Null,
+                    CsvAny::Float(f) => petal_length_cm::Float(*f),
+                    CsvAny::Null => petal_length_cm::Null,
 
                     _ => panic!(),
                 })
@@ -151,8 +151,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::csv_types::CsvAny::Float(f) => petal_width_cm::Float(*f),
-                    csv_deserializer::csv_types::CsvAny::Null => petal_width_cm::Null,
+                    CsvAny::Float(f) => petal_width_cm::Float(*f),
+                    CsvAny::Null => petal_width_cm::Null,
 
                     _ => panic!(),
                 })
@@ -169,8 +169,8 @@ impl CsvDataFrame {
             dataset.values[index]
                 .iter()
                 .map(|val| match val {
-                    csv_deserializer::csv_types::CsvAny::Str(s) => target::from_str(s).unwrap(),
-                    csv_deserializer::csv_types::CsvAny::Null => target::Null,
+                    CsvAny::Str(s) => target::from_str(s).unwrap(),
+                    CsvAny::Null => target::Null,
 
                     _ => panic!(),
                 })
